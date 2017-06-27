@@ -4,6 +4,10 @@ Self-Driving Car Engineer Nanodegree Program
 ---
 ## Please Check below for the dependancies
 
+### Video Sample
+https://youtu.be/oJA1XanzMYs
+Note: at the end I speed up above the programmed limit all the way to the sharp turns and let go, notice how the MPC recovers quite elegantly in that situation ( proud moment:D )
+
 ## The model.
 
 If we consider the desired path as our "ground truth" with our goal to be that path, we can consider the control problem to be that of optimisation.
