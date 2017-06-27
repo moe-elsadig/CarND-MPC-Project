@@ -109,12 +109,19 @@ int main() {
           // therefore px = 0, py = 0, psi = 0
           for(unsigned int i=0; i<ptsx.size(); i++){
 
+            // // coordinates based on the car coordinates
+            // ptsx[i] -= px;
+            // ptsy[i] -= py;
+            // // distance from the cars perspective
+            // ptsx[i] = ptsx[i]*cos(-psi) - ptsy[i]*sin(-psi);
+            // ptsy[i] = ptsx[i]*sin(-psi) + ptsy[i]*cos(-psi);
+
             // coordinates based on the car coordinates
-            ptsx[i] -= px;
-            ptsy[i] -= py;
+            double ptx = ptsx[i] - px;
+            double pty = ptsy[i] - py;
             // distance from the cars perspective
-            ptsx[i] = ptsx[i]*cos(-psi) - ptsy[i]*sin(-psi);
-            ptsy[i] = ptsx[i]*sin(-psi) + ptsy[i]*cos(-psi);
+            ptsx[i] = ptx*cos(-psi) - pty*sin(-psi);
+            ptsy[i] = ptx*sin(-psi) + pty*cos(-psi);
           }
 
           // so we need to calculate the last two variables here before calling MPC::Solve()
@@ -143,7 +150,7 @@ int main() {
           auto results = mpc.Solve(state, coeffs);
 
           // assign the results
-          steer_value = results[0]/deg2rad(25);
+          steer_value = results[0]/(deg2rad(25)*2.67);
           throttle_value = results[1];
 
           json msgJson;
