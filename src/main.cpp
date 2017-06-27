@@ -109,13 +109,6 @@ int main() {
           // therefore px = 0, py = 0, psi = 0
           for(unsigned int i=0; i<ptsx.size(); i++){
 
-            // // coordinates based on the car coordinates
-            // ptsx[i] -= px;
-            // ptsy[i] -= py;
-            // // distance from the cars perspective
-            // ptsx[i] = ptsx[i]*cos(-psi) - ptsy[i]*sin(-psi);
-            // ptsy[i] = ptsx[i]*sin(-psi) + ptsy[i]*cos(-psi);
-
             // coordinates based on the car coordinates
             double ptx = ptsx[i] - px;
             double pty = ptsy[i] - py;
@@ -165,7 +158,7 @@ int main() {
 
           // TODO: .. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Green line
-          for(unsigned int i=2; i<results.size(); i+=2){
+          for(unsigned int i=2; i<results.size()-1; i+=2){
 
               mpc_x_vals.push_back(results[i]);
               mpc_y_vals.push_back(results[i+1]);
@@ -180,7 +173,7 @@ int main() {
 
           // TODO: .. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Yellow line
-          for(double i=2.; i <= 10; i+=2){
+          for(double i=2.; i <= 20; i+=2){
 
             next_x_vals.push_back(i);
             next_y_vals.push_back(polyeval(coeffs, i));

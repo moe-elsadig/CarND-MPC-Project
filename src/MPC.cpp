@@ -23,7 +23,7 @@ const double Lf = 2.67;
 
 // feel free to play around with this
 // or do something completely different
-double ref_v = 100.;
+double ref_v = 50.;
 double ref_epsi = 0.;
 double ref_cte = 0.;
 
@@ -62,8 +62,8 @@ class FG_eval {
     for(unsigned int t=0; t<N; t++){
 
       //state costs
-      fg[0] += 2000*CppAD::pow(vars[cte_start+t], 2);
-      fg[0] += 2000*CppAD::pow(vars[epsi_start+t], 2);
+      fg[0] += 3000*CppAD::pow(vars[cte_start+t], 2);
+      fg[0] += 3000*CppAD::pow(vars[epsi_start+t], 2);
       //incase it stops midway
       fg[0] += CppAD::pow((vars[v_start+t] - ref_v), 2);
     }
