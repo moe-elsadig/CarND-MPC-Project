@@ -2,6 +2,31 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+## Please Check below for the dependancies
+
+## The model.
+
+If we consider the desired path as our "ground truth" with our goal to be that path, we can consider the control problem to be that of optimisation.
+
+We have where we are now (x coor, y coor, v velocity, psi angle) and we know where we wish to be (e.g. the track's center) so it's a matter of a few equations to calculate our translational (cte crosstrack) error and our rotational/orientation (epsi) error. Doing so we can use our vehicle's mathematical representation (model) and predict the next number of steps into the future (N) at set increments of time (dt). 
+
+## It's all about the timing!
+
+Note that N has an effect on the computational complexity if set too high. dt should remain as low as possible but with the same consideration as N's increase, when using dt you should also be mindful of latency and incorporate as part of the model, an advantage of MPCs over PIDs.
+
+At each step we predict N steps into the future, but, we only use the first prediction which is for the following (current) step only, the rest are discarded as the process is repeated from the new step. Storing the rest of the values can allow us to visualise the predicted trajectory at each step vs. the optimal path (green and yellow lines) in simulation to further study and optimise our cost functions.
+
+## Location, location, location?
+
+Before starting off, our coordinates from the simulator are being fed to the MPC function as map coordinates, it is more efficient to preprocess these variables and change the perspective a little, like vehicle's for example! that's much more convenient. Doing so allows to simplify the state we pass to the MPC function and our CTE and EPSI calculations since px = py = psi = 0 now! convenient!.
+
+We should also consider passing the path as a polynomial, and under the current circumstance (vehicle + roads) a 3rd order polynomial is quite sufficient at representing the curvature of most roads around (definitely in the simulator), and be sure to represent the order in the calculations for the acceleration (a) and steering angle (delta) in the MPC function when predicting.
+
+## Late.........ncy.......
+
+Latency is a real issue, and a major advantage of the MPC. Modeling latency can simply be an addition to the vehicle model, where we are predicting for a certain time ahead of, not to mention incorporating punishments and pulling favourites when it comes to the cost calculation (if you dig through the code, the seemingly random numbers starting the cost calculations, that's how much I favour each one :p ), since we're running at a lag to the real world, it's easier to try and smooth things over, not take rash decisions since at any given moment, there is information we haven't caught up to yet and it's good to be careful and take things slow than jump the gun.
+
+
 
 ## Dependencies
 
