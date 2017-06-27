@@ -114,11 +114,6 @@ class FG_eval {
 
       AD<double> delta0 = vars[delta_start + t - 1];
       AD<double> a0 = vars[a_start + t - 1];
-      //
-      // if (t > 1) {   // use previous actuations (to account for latency)
-      //   a0 = vars[a_start + t - 1];
-      //   delta0 = vars[delta_start + t - 1];
-      // }
 
       // 3rd ordeer poly
       AD<double> f0 = coeffs[0] + coeffs[1]*x0 + coeffs[2]*CppAD::pow(x0, 2) + coeffs[3]*CppAD::pow(x0, 3);
